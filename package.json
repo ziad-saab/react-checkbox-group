@@ -1,0 +1,30 @@
+{
+  "name": "react-checkbox-group",
+  "version": "0.1.4",
+  "description": "Sensible checkbox groups manipulation for DOM.",
+  "main": "react-checkbox-group.jsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ziad-saab/react-checkbox-group.git"
+  },
+  "keywords": [
+    "facebook",
+    "react",
+    "checkbox",
+    "group",
+    "dom",
+    "input"
+  ],
+  "author": "Ziad Saab <ziad.saab@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ziad-saab/react-checkbox-group/issues"
+  },
+  "homepage": "https://github.com/ziad-saab/react-checkbox-group",
+  "dependencies": {
+    "react": "~0.11.1"
+  }
+}

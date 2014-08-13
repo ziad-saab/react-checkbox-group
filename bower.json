@@ -1,0 +1,25 @@
+{
+  "name": "react-checkbox-group",
+  "version": "0.1.4",
+  "author": "Ziad Saab <ziad.saab@gmail.com>",
+  "description": "Sensible checkbox groups manipulation for DOM.",
+  "main": "react-checkbox-group.jsx",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "package.json"
+  ],
+  "keywords": [
+    "facebook",
+    "react",
+    "checkbox",
+    "group",
+    "dom",
+    "input"
+  ],
+  "dependencies": {
+    "react": "~0.11.1"
+  },
+  "license": "MIT"
+}
