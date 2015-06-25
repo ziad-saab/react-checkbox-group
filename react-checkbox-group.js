@@ -1,58 +1,58 @@
 /**
 * @jsx React.DOM
 */
+'use strict';
+
 var React = require('react');
 
 module.exports = React.createClass({
   displayName: 'CheckboxGroup',
-  getInitialState: function() {
-    return {defaultValue: this.props.defaultValue || []};
+  getInitialState: function getInitialState() {
+    return { defaultValue: this.props.defaultValue || [] };
   },
 
-  componentDidMount: function() {
+  componentDidMount: function componentDidMount() {
     this.setCheckboxNames();
     this.setCheckedBoxes();
   },
 
-  componentDidUpdate: function() {
+  componentDidUpdate: function componentDidUpdate() {
     this.setCheckboxNames();
     this.setCheckedBoxes();
   },
 
-  render: function() {
-    return (
-      <div {...this.props}>
-        {this.props.children}
-      </div>
+  render: function render() {
+    return React.createElement(
+      'div',
+      this.props,
+      this.props.children
     );
   },
 
-  setCheckboxNames: function() {
+  setCheckboxNames: function setCheckboxNames() {
     // stay DRY and don't put the same `name` on all checkboxes manually. Put it on
     // the tag and it'll be done here
-    let $checkboxes = this.getCheckboxes();
-    for (let i = 0, length = $checkboxes.length; i < length; i++) {
+    var $checkboxes = this.getCheckboxes();
+    for (var i = 0, _length = $checkboxes.length; i < _length; i++) {
       $checkboxes[i].setAttribute('name', this.props.name);
     }
   },
 
-  getCheckboxes: function() {
+  getCheckboxes: function getCheckboxes() {
     return this.getDOMNode().querySelectorAll('input[type="checkbox"]');
   },
 
-  setCheckedBoxes: function() {
-    let $checkboxes = this.getCheckboxes();
+  setCheckedBoxes: function setCheckedBoxes() {
+    var $checkboxes = this.getCheckboxes();
     // if `value` is passed from parent, always use that value. This is similar
     // to React's controlled component. If `defaultValue` is used instead,
     // subsequent updates to defaultValue are ignored. Note: when `defaultValue`
     // and `value` are both passed, the latter takes precedence, just like in
     // a controlled component
-    let destinationValue = this.props.value != null
-      ? this.props.value
-      : this.state.defaultValue;
+    var destinationValue = this.props.value != null ? this.props.value : this.state.defaultValue;
 
-    for (let i = 0, length = $checkboxes.length; i < length; i++) {
-      let $checkbox = $checkboxes[i];
+    for (var i = 0, _length2 = $checkboxes.length; i < _length2; i++) {
+      var $checkbox = $checkboxes[i];
 
       // intentionally use implicit conversion for those who accidentally used,
       // say, `valueToChange` of 1 (integer) to compare it with `value` of "1"
@@ -63,11 +63,11 @@ module.exports = React.createClass({
     }
   },
 
-  getCheckedValues: function() {
-    let $checkboxes = this.getCheckboxes();
+  getCheckedValues: function getCheckedValues() {
+    var $checkboxes = this.getCheckboxes();
 
-    let checked = [];
-    for (let i = 0, length = $checkboxes.length; i < length; i++) {
+    var checked = [];
+    for (var i = 0, _length3 = $checkboxes.length; i < _length3; i++) {
       if ($checkboxes[i].checked) {
         checked.push($checkboxes[i].value);
       }
