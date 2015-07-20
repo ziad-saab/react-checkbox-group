@@ -20,8 +20,9 @@ module.exports = React.createClass({
   },
 
   render: function() {
+    let {name, value, defaultValue, ...otherProps} = this.props;
     return (
-      <div {...this.props}>
+      <div {...otherProps}>
         {this.props.children}
       </div>
     );

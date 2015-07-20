@@ -1,6 +1,6 @@
 {
   "name": "react-checkbox-group",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "Ziad Saab <ziad.saab@gmail.com>",
   "description": "Sensible checkbox groups manipulation for DOM.",
   "main": "react-checkbox-group.js",

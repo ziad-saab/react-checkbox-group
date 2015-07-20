@@ -3,6 +3,8 @@
 */
 'use strict';
 
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
 var React = require('react');
 
 module.exports = React.createClass({
@@ -22,9 +24,16 @@ module.exports = React.createClass({
   },
 
   render: function render() {
+    var _props = this.props;
+    var name = _props.name;
+    var value = _props.value;
+    var defaultValue = _props.defaultValue;
+
+    var otherProps = _objectWithoutProperties(_props, ['name', 'value', 'defaultValue']);
+
     return React.createElement(
       'div',
-      this.props,
+      otherProps,
       this.props.children
     );
   },
