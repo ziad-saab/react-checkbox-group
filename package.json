@@ -1,6 +1,6 @@
 {
   "name": "react-checkbox-group",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "description": "Sensible checkbox groups manipulation for DOM.",
   "main": "react-checkbox-group.js",
   "scripts": {
@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/ziad-saab/react-checkbox-group",
   "peerDependencies": {
-    "react": ">= 0.11.1 < 1"
+    "react": ">= 0.13.0 < 1"
   },
   "devDependencies": {
     "babel": "^5.6.7"

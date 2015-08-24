@@ -38,7 +38,7 @@ module.exports = React.createClass({
   },
 
   getCheckboxes: function() {
-    return this.getDOMNode().querySelectorAll('input[type="checkbox"]');
+    return React.findDOMNode(this).querySelectorAll('input[type="checkbox"]');
   },
 
   setCheckedBoxes: function() {
