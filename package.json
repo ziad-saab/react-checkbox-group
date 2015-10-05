@@ -1,6 +1,6 @@
 {
   "name": "react-checkbox-group",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Sensible checkbox groups manipulation for DOM.",
   "main": "react-checkbox-group.js",
   "scripts": {
