@@ -27,7 +27,8 @@
   },
   "homepage": "https://github.com/ziad-saab/react-checkbox-group",
   "peerDependencies": {
-    "react": ">= 0.13.0 < 1"
+    "react": ">= 0.14.0 < 1",
+    "react-dom": ">= 0.14.0 < 1"
   },
   "devDependencies": {
     "babel": "^5.6.7"
