@@ -12,11 +12,13 @@ module.exports = React.createClass({
   componentDidMount: function() {
     this.setCheckboxNames();
     this.setCheckedBoxes();
+    this.uncheckAll();
   },
 
   componentDidUpdate: function() {
     this.setCheckboxNames();
     this.setCheckedBoxes();
+    this.uncheckAll();
   },
 
   render: function() {
@@ -34,6 +36,7 @@ module.exports = React.createClass({
     let $checkboxes = this.getCheckboxes();
     for (let i = 0, length = $checkboxes.length; i < length; i++) {
       $checkboxes[i].setAttribute('name', this.props.name);
+      $checkboxes[i].setAttribute("checked", "false");
     }
   },
 
@@ -62,6 +65,35 @@ module.exports = React.createClass({
         $checkbox.checked = true;
       }
     }
+  },
+
+  uncheckAll: function()
+  {
+    let $checkboxes = this.getCheckboxes();
+
+    for (let i = 0, length = $checkboxes.length; i < length; i++) {
+      let $checkbox = $checkboxes[i];
+
+      // uncheck all checkboxes
+      $checkbox.checked = false;
+
+    }
+
+  },
+
+
+  checkAll: function()
+  {
+    let $checkboxes = this.getCheckboxes();
+
+    for (let i = 0, length = $checkboxes.length; i < length; i++) {
+      let $checkbox = $checkboxes[i];
+
+      // check all checkboxes
+      $checkbox.checked = true;
+
+    }
+
   },
 
   getCheckedValues: function() {
