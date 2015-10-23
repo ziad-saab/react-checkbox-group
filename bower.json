@@ -20,7 +20,8 @@
     "react-component"
   ],
   "dependencies": {
-    "react": "~0.11.1"
+    "react": "~0.14.0",
+    "react-dom": "~0.14.0"
   },
   "license": "MIT"
 }

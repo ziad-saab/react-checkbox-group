@@ -2,6 +2,7 @@
 * @jsx React.DOM
 */
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 module.exports = React.createClass({
   displayName: 'CheckboxGroup',
@@ -38,7 +39,7 @@ module.exports = React.createClass({
   },
 
   getCheckboxes: function() {
-    return React.findDOMNode(this).querySelectorAll('input[type="checkbox"]');
+    return ReactDOM.findDOMNode(this).querySelectorAll('input[type="checkbox"]');
   },
 
   setCheckedBoxes: function() {
