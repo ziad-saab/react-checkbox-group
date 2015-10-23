@@ -6,6 +6,7 @@
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 
 module.exports = React.createClass({
   displayName: 'CheckboxGroup',
@@ -48,7 +49,7 @@ module.exports = React.createClass({
   },
 
   getCheckboxes: function getCheckboxes() {
-    return React.findDOMNode(this).querySelectorAll('input[type="checkbox"]');
+    return ReactDOM.findDOMNode(this).querySelectorAll('input[type="checkbox"]');
   },
 
   setCheckedBoxes: function setCheckedBoxes() {
