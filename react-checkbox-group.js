@@ -1,6 +1,3 @@
-/**
-* @jsx React.DOM
-*/
 'use strict';
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
@@ -43,7 +40,7 @@ module.exports = React.createClass({
     // stay DRY and don't put the same `name` on all checkboxes manually. Put it on
     // the tag and it'll be done here
     var $checkboxes = this.getCheckboxes();
-    for (var i = 0, _length = $checkboxes.length; i < _length; i++) {
+    for (var i = 0, length = $checkboxes.length; i < length; i++) {
       $checkboxes[i].setAttribute('name', this.props.name);
     }
   },
@@ -61,7 +58,7 @@ module.exports = React.createClass({
     // a controlled component
     var destinationValue = this.props.value != null ? this.props.value : this.state.defaultValue;
 
-    for (var i = 0, _length2 = $checkboxes.length; i < _length2; i++) {
+    for (var i = 0, length = $checkboxes.length; i < length; i++) {
       var $checkbox = $checkboxes[i];
 
       // intentionally use implicit conversion for those who accidentally used,
@@ -77,7 +74,7 @@ module.exports = React.createClass({
     var $checkboxes = this.getCheckboxes();
 
     var checked = [];
-    for (var i = 0, _length3 = $checkboxes.length; i < _length3; i++) {
+    for (var i = 0, length = $checkboxes.length; i < length; i++) {
       if ($checkboxes[i].checked) {
         checked.push($checkboxes[i].value);
       }
