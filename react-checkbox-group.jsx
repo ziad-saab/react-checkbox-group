@@ -56,9 +56,7 @@ module.exports = React.createClass({
       // intentionally use implicit conversion for those who accidentally used,
       // say, `valueToChange` of 1 (integer) to compare it with `value` of "1"
       // (auto conversion to valid html value from React)
-      if (destinationValue.indexOf($checkbox.value) >= 0) {
-        $checkbox.checked = true;
-      }
+      $checkbox.checked = destinationValue.indexOf($checkbox.value) >= 0;
     }
   },
 
