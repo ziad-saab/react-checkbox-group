@@ -1,77 +1,79 @@
 var React = require('react');
-var ReactDOM = require('react-dom');
+
+function checkbox(name, checkedValues, onChange) {
+  return function Checkbox(props) {
+    var checked = checkedValues.indexOf(props.value) >= 0;
+    onChange = onChange.bind(null, props.value);
+
+    return (
+      <input
+        {...props}
+        type="checkbox"
+        name={name}
+        checked={checked}
+        onChange={onChange}
+        />
+    );
+  }
+}
 
 module.exports = React.createClass({
   displayName: 'CheckboxGroup',
   getInitialState: function() {
-    return {defaultValue: this.props.defaultValue || []};
+    return {
+      value: this.props.value || this.props.defaultValue || [],
+      firstRender: true // for defaultValue
+    };
   },
-
+  isControlledComponent: function() {
+    return !!this.props.value;
+  },
+  componentWillReceiveProps(newProps) {
+    if (newProps.value) {
+      this.setState({value: newProps.value});
+    }
+  },
   componentDidMount: function() {
-    this.setCheckboxNames();
-    this.setCheckedBoxes();
+    // TODO: this seems wrong, is there a better way??
+    this.setState({
+      firstRender: false
+    });
   },
+  onCheckboxChange: function(checkboxValue, event) {
+    var newValue;
+    if (event.target.checked) {
+      newValue = this.state.value.concat(checkboxValue);
+    }
+    else {
+      newValue = this.state.value.filter(v => v !== checkboxValue);
+    }
 
-  componentDidUpdate: function() {
-    this.setCheckboxNames();
-    this.setCheckedBoxes();
+    if (!this.isControlledComponent()) {
+      this.setState({value: newValue});
+    }
+    else {
+      this.setState({value: this.props.value});
+    }
+
+    if (typeof this.props.onChange === 'function') {
+      this.props.onChange(newValue);
+    }
   },
-
+  getValue: function() {
+    return this.state.value;
+  },
   render: function() {
-    let {name, value, defaultValue, ...otherProps} = this.props;
-    return (
-      <div {...otherProps}>
-        {this.props.children}
-      </div>
-    );
-  },
+    var {name, value, children} = this.props;
 
-  setCheckboxNames: function() {
-    // stay DRY and don't put the same `name` on all checkboxes manually. Put it on
-    // the tag and it'll be done here
-    let $checkboxes = this.getCheckboxes();
-    for (let i = 0, length = $checkboxes.length; i < length; i++) {
-      $checkboxes[i].setAttribute('name', this.props.name);
+    var checkedValues;
+    if (!this.isControlledComponent()) {
+      checkedValues = this.state.value;
     }
-  },
-
-  getCheckboxes: function() {
-    return ReactDOM.findDOMNode(this).querySelectorAll('input[type="checkbox"]');
-  },
-
-  setCheckedBoxes: function() {
-    let $checkboxes = this.getCheckboxes();
-    // if `value` is passed from parent, always use that value. This is similar
-    // to React's controlled component. If `defaultValue` is used instead,
-    // subsequent updates to defaultValue are ignored. Note: when `defaultValue`
-    // and `value` are both passed, the latter takes precedence, just like in
-    // a controlled component
-    let destinationValue = this.props.value != null
-      ? this.props.value
-      : this.state.defaultValue;
-
-    for (let i = 0, length = $checkboxes.length; i < length; i++) {
-      let $checkbox = $checkboxes[i];
-
-      // intentionally use implicit conversion for those who accidentally used,
-      // say, `valueToChange` of 1 (integer) to compare it with `value` of "1"
-      // (auto conversion to valid html value from React)
-      if (destinationValue.indexOf($checkbox.value) >= 0) {
-        $checkbox.checked = true;
-      }
-    }
-  },
-
-  getCheckedValues: function() {
-    let $checkboxes = this.getCheckboxes();
-
-    let checked = [];
-    for (let i = 0, length = $checkboxes.length; i < length; i++) {
-      if ($checkboxes[i].checked) {
-        checked.push($checkboxes[i].value);
-      }
+    else {
+      checkedValues = value;
     }
 
-    return checked;
-  }
+    var renderedChildren = children(checkbox(name, checkedValues, this.onCheckboxChange));
+    return renderedChildren && React.Children.only(renderedChildren);
+  },
 });

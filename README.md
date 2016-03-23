@@ -5,30 +5,41 @@ This is your average checkbox group:
 
 ```html
 <form>
-  <input type="checkbox" name="fruit" value="apple" />Apple
-  <input type="checkbox" name="fruit" value="orange" />Orange
-  <input type="checkbox" name="fruit" value="watermelon" />Watermelon
+  <input onChange={this.handleFruitChange} type="checkbox" name="fruit" value="apple" />Apple
+  <input onChange={this.handleFruitChange} type="checkbox" name="fruit" value="orange" />Orange
+  <input onChange={this.handleFruitChange} type="checkbox" name="fruit" value="watermelon" />Watermelon
 </form>
 ```
 
 Repetitive, hard to manipulate and easily desynchronized.
-Lift up `name`, give the group an initial checked values array, and optionally remove the form tag:
+Lift up `name` and `onChange`, and give the group an initial checked values array:
 
-```html
-<CheckboxGroup name="fruit" value={['apple','watermelon']}>
-  <input type="checkbox" value="apple" />Apple
-  <input type="checkbox" value="orange" />Orange
-  <input type="checkbox" value="watermelon" />Watermelon
+```javascript
+<CheckboxGroup name="fruits" value={['kiwi', 'pineapple']} onChange={this.fruitsChanged}>
+  {
+    Checkbox => (
+      <div>
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
+      </div>
+    )
+  }
 </CheckboxGroup>
 ```
 
 Listen for changes, get the new value as intuitively as possible:
 
-```html
-<CheckboxGroup name="fruit" value={['apple','watermelon']} ref="fruitsGroup" onChange={this.handleChange}>
-// further...
-
-this.refs.fruitsGroup.getCheckedValues(); // => whatever's currently checked
+```javascript
+<CheckboxGroup name="fruit" value={['apple','watermelon']} onChange={this.handleChange}>
+...
+</CheckboxGroup>
+```
+and further
+```javascript
+function handleChange(newValues) {
+  // ['apple']
+}
 ```
 
 That's it for the API! See below for a complete example.
@@ -41,28 +52,31 @@ or
 npm install react-checkbox-group
 ```
 
-Simply require it to use it:
+Simply require/import it to use it:
 
 ```javascript
 var CheckboxGroup = require('react-checkbox-group');
+// or
+import CheckboxGroup from 'react-checkbox-group';
 ```
 
 ## Example
 
-```html
-/**
-* @jsx React.DOM
-*/
+```javascript
 var Demo = React.createClass({
   getInitialState: function() {
-    return {value: ['apple','watermelon']};
+    return {
+      fruits: ['apple','watermelon']
+    };
   },
 
   componentDidMount: function() {
-    // Add orange and remove watermelon after 1 second
+    // Add orange and remove watermelon after 5 seconds
     setTimeout(function() {
-      this.setState({value: ['apple','orange']});
-    }.bind(this), 1000);
+      this.setState({
+        value: ['apple','orange']
+      });
+    }.bind(this), 5000);
   },
 
   render: function() {
@@ -71,32 +85,35 @@ var Demo = React.createClass({
     return (
       <CheckboxGroup
         name="fruits"
-        value={this.state.value}
-        ref="fruitsGroup"
-        onChange={this.handleChange}
+        value={this.state.fruits}
+        onChange={this.fruitsChanged}
       >
-        <div>
-          <label>
-            <input type="checkbox" value="apple"/>Apple
-          </label>
-          <label>
-            <input type="checkbox" value="orange"/>Orange
-          </label>
-          <label>
-            <input type="checkbox" value="watermelon"/>Watermelon
-          </label>
-        </div>
+        {
+          Checkbox => (
+            <form>
+              <label>
+                <Checkbox value="apple"/> Apple
+              </label>
+              <label>
+                <Checkbox value="orange"/> Orange
+              </label>
+              <label>
+                <Checkbox value="watermelon"/> Watermelon
+              </label>
+            </form>
+          )
+        }
       </CheckboxGroup>
     );
   },
-
-  handleChange: function() {
-    // will return the currently selected checkbox values as an array, possibly empty
-    var selectedFruits = this.refs.fruitsGroup.getCheckedValues();
+  fruitsChanged: function(newFruits) {
+    this.setState({
+      fruits: newFruits
+    });
   }
 });
 
-React.renderComponent(<Demo/>, document.body);
+ReactDOM.render(<Demo/>, document.body);
 ```
 
 ## License
