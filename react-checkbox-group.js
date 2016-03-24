@@ -22,8 +22,7 @@ module.exports = React.createClass({
   displayName: 'CheckboxGroup',
   getInitialState: function getInitialState() {
     return {
-      value: this.props.value || this.props.defaultValue || [],
-      firstRender: true // for defaultValue
+      value: this.props.value || this.props.defaultValue || []
     };
   },
   isControlledComponent: function isControlledComponent() {
@@ -35,12 +34,6 @@ module.exports = React.createClass({
     }
   },
 
-  componentDidMount: function componentDidMount() {
-    // TODO: this seems wrong, is there a better way??
-    this.setState({
-      firstRender: false
-    });
-  },
   onCheckboxChange: function onCheckboxChange(checkboxValue, event) {
     var newValue;
     if (event.target.checked) {
