@@ -7,13 +7,13 @@ var React = require('react');
 function checkbox(name, checkedValues, onChange) {
   return function Checkbox(props) {
     var checked = checkedValues.indexOf(props.value) >= 0;
-    onChange = onChange.bind(null, props.value);
+    var boxChange = onChange.bind(null, props.value);
 
     return React.createElement('input', _extends({}, props, {
       type: 'checkbox',
       name: name,
       checked: checked,
-      onChange: onChange
+      onChange: boxChange
     }));
   };
 }
