@@ -146,7 +146,7 @@ describe('ReactCheckboxGroup', function() {
   });
 
   it('Calls `onChange` with the correct new value', function() {
-    var fruits = ['watermelon', 'pineapple'];
+    var fruits = ['kiwi', 'watermelon'];
     var onChangeCalled = false;
     var newFruits;
     function onChange(newValue) {
@@ -170,7 +170,7 @@ describe('ReactCheckboxGroup', function() {
 
     // Check the box manually
     var wrapper = ReactDOM.findDOMNode(component);
-    var box = wrapper.querySelector('input[value="kiwi"]');
+    var box = wrapper.querySelector('input[value="pineapple"]');
     Simulate.change(box, {target: {checked: true}});
 
     expect(onChangeCalled).to.be.ok;

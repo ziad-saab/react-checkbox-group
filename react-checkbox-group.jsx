@@ -3,7 +3,7 @@ var React = require('react');
 function checkbox(name, checkedValues, onChange) {
   return function Checkbox(props) {
     var checked = checkedValues.indexOf(props.value) >= 0;
-    onChange = onChange.bind(null, props.value);
+    let boxChange = onChange.bind(null, props.value);
 
     return (
       <input
@@ -11,7 +11,7 @@ function checkbox(name, checkedValues, onChange) {
         type="checkbox"
         name={name}
         checked={checked}
-        onChange={onChange}
+        onChange={boxChange}
         />
     );
   }
