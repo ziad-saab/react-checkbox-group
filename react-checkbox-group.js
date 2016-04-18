@@ -63,6 +63,7 @@ module.exports = React.createClass({
     var value = _props.value;
     var children = _props.children;
 
+
     var checkedValues;
     if (!this.isControlledComponent()) {
       checkedValues = this.state.value;
