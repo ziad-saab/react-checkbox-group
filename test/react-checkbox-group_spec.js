@@ -6,6 +6,14 @@ var ReactTestUtils = require('react-addons-test-utils');
 var renderIntoDocument = ReactTestUtils.renderIntoDocument;
 var Simulate = ReactTestUtils.Simulate;
 
+function _findInputWithValue(wrapper, value) {
+  return (
+    Array
+    .from(wrapper.querySelectorAll('input[name="fruit"]'))
+    .find(x => x.value === value)
+  );
+}
+
 describe('ReactCheckboxGroup', function() {
 
   it('Passes the `name` prop down to the boxes', function() {
@@ -71,7 +79,7 @@ describe('ReactCheckboxGroup', function() {
 
     // Check the box manually
     var wrapper = ReactDOM.findDOMNode(component);
-    var box = wrapper.querySelector('input[value="kiwi"]');
+    var box = _findInputWithValue(wrapper, 'kiwi');
     Simulate.change(box, {target: {checked: true}});
 
     // Re-render with same props, defaultValue shouldn't affect it now
@@ -119,7 +127,7 @@ describe('ReactCheckboxGroup', function() {
 
     // Check the box manually
     var wrapper = ReactDOM.findDOMNode(component);
-    var box = wrapper.querySelector('input[value="kiwi"]');
+    var box = _findInputWithValue(wrapper, 'kiwi')
     Simulate.change(box, {target: {checked: true}});
 
     // Re-render with same props, value should be kept
@@ -170,7 +178,7 @@ describe('ReactCheckboxGroup', function() {
 
     // Check the box manually
     var wrapper = ReactDOM.findDOMNode(component);
-    var box = wrapper.querySelector('input[value="pineapple"]');
+    var box = _findInputWithValue(wrapper, 'pineapple');
     Simulate.change(box, {target: {checked: true}});
 
     expect(onChangeCalled).to.be.ok;
