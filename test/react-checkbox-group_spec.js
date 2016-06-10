@@ -187,4 +187,31 @@ describe('ReactCheckboxGroup', function() {
     expect(newFruits).to.include('pineapple');
     expect(newFruits).to.include('watermelon');
   });
+
+  it('Supports rendering a custom checkbox component', function() {
+    // Component that renders a checkbox, e.g. the Checkbox component from `react-bootstrap`
+    var CustomCheckbox = (props) => (
+      <label className="custom">
+        <input type="checkbox" {...props} />
+        {props.label}
+      </label>
+    );
+
+    var component = renderIntoDocument(
+      <CheckboxGroup name="fruit" componentClass={CustomCheckbox}>
+        {
+          Checkbox => (
+            <div>
+              <Checkbox label="Super Kiwi" value="kiwi"/>
+              <Checkbox label="Awesome Watermelon" value="watermelon"/>
+            </div>
+          )
+        }
+      </CheckboxGroup>
+    );
+    var elements = ReactDOM.findDOMNode(component).querySelectorAll('.custom');
+
+    expect(elements.length).to.equal(2);
+    expect(elements[0].textContent).to.equal('Super Kiwi');
+  });
 });
