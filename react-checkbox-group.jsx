@@ -1,14 +1,14 @@
 var React = require('react');
 
-function checkbox(name, checkedValues, onChange) {
+function checkbox(Component, name, checkedValues, onChange) {
   return function Checkbox(props) {
     var checked = checkedValues.indexOf(props.value) >= 0;
     let boxChange = onChange.bind(null, props.value);
 
     return (
-      <input
+      <Component
         {...props}
-        type="checkbox"
+        type={Component === 'input' ? 'checkbox': null}
         name={name}
         checked={checked}
         onChange={boxChange}
@@ -66,7 +66,9 @@ module.exports = React.createClass({
       checkedValues = value;
     }
 
-    var renderedChildren = children(checkbox(name, checkedValues, this.onCheckboxChange));
+    var Component = this.props.componentClass || 'input';
+
+    var renderedChildren = children(checkbox(Component, name, checkedValues, this.onCheckboxChange));
     return renderedChildren && React.Children.only(renderedChildren);
   },
 });

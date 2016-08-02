@@ -46,6 +46,32 @@ function handleChange(newValues) {
 }
 ```
 
+Optionally, specify a component to be used to render the checkboxes:
+
+```javascript
+// Component that renders a checkbox, e.g. the Checkbox component from `react-bootstrap`
+var CustomCheckbox = (props) => (
+  <label className="custom">
+    <input type="checkbox" {...props} />
+    {props.label}
+  </label>
+);
+
+// ...
+
+<CheckboxGroup name="fruits" value={['kiwi', 'pineapple']} onChange={this.fruitsChanged} componentClass={CustomCheckbox}>
+  {
+    Checkbox => (
+      <div>
+        <Checkbox label="Master Kiwi" value="kiwi"/>
+        <Checkbox label="Super Pineapple" value="pineapple"/>
+        <Checkbox label="Awesome Watermelon" value="watermelon"/>
+      </div>
+    )
+  }
+</CheckboxGroup>
+```
+
 That's it for the API! See below for a complete example.
 
 ## Install
