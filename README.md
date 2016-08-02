@@ -37,7 +37,9 @@ Listen for changes, get the new value as intuitively as possible:
 ...
 </CheckboxGroup>
 ```
+
 and further
+
 ```javascript
 function handleChange(newValues) {
   // ['apple']
@@ -50,7 +52,11 @@ That's it for the API! See below for a complete example.
 
 ```sh
 bower install react-checkbox-group
+```
+
 or
+
+```sh
 npm install react-checkbox-group
 ```
 
