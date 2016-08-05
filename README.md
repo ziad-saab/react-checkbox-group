@@ -17,16 +17,12 @@ Repetitive, hard to manipulate and easily desynchronized.
 Lift up `name` and `onChange`, and give the group an initial checked values array:
 
 ```javascript
+import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
+
 <CheckboxGroup name="fruits" value={['kiwi', 'pineapple']} onChange={this.fruitsChanged}>
-  {
-    Checkbox => (
-      <div>
-        <Checkbox value="kiwi"/>
-        <Checkbox value="pineapple"/>
-        <Checkbox value="watermelon"/>
-      </div>
-    )
-  }
+  <Checkbox value="kiwi"/>
+  <Checkbox value="pineapple"/>
+  <Checkbox value="watermelon"/>
 </CheckboxGroup>
 ```
 
@@ -63,9 +59,12 @@ npm install react-checkbox-group
 Simply require/import it to use it:
 
 ```javascript
-var CheckboxGroup = require('react-checkbox-group');
-// or
-import CheckboxGroup from 'react-checkbox-group';
+var Check = require('react-checkbox-group');
+var Checkbox = Check.Checkbox;
+var CheckboxGroup = Check.CheckboxGroup;
+
+// or ES6
+import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 ```
 
 ## Example
@@ -94,23 +93,11 @@ var Demo = React.createClass({
       <CheckboxGroup
         name="fruits"
         value={this.state.fruits}
-        onChange={this.fruitsChanged}
-      >
-        {
-          Checkbox => (
-            <form>
-              <label>
-                <Checkbox value="apple"/> Apple
-              </label>
-              <label>
-                <Checkbox value="orange"/> Orange
-              </label>
-              <label>
-                <Checkbox value="watermelon"/> Watermelon
-              </label>
-            </form>
-          )
-        }
+        onChange={this.fruitsChanged}>
+
+        <label><Checkbox value="apple"/> Apple</label>
+        <label><Checkbox value="orange"/> Orange</label>
+        <label><Checkbox value="watermelon"/> Watermelon</label>
       </CheckboxGroup>
     );
   },

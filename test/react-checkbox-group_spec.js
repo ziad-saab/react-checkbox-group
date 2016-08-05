@@ -1,10 +1,8 @@
-var React = require('react');
-var ReactDOM = require('react-dom');
-var expect = require('chai').expect;
-var CheckboxGroup = require('../react-checkbox-group.jsx');
-var ReactTestUtils = require('react-addons-test-utils');
-var renderIntoDocument = ReactTestUtils.renderIntoDocument;
-var Simulate = ReactTestUtils.Simulate;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {expect} from 'chai';
+import {Checkbox, CheckboxGroup} from '../react-checkbox-group.jsx';
+import {Simulate, renderIntoDocument} from 'react-addons-test-utils';
 
 function _findInputWithValue(wrapper, value) {
   return (
@@ -19,14 +17,8 @@ describe('ReactCheckboxGroup', function() {
   it('Passes the `name` prop down to the boxes', function() {
     var component = renderIntoDocument(
       <CheckboxGroup name="fruit">
-        {
-          Checkbox => (
-            <div>
-              <Checkbox value="kiwi"/>
-              <Checkbox value="watermelon"/>
-            </div>
-          )
-        }
+        <Checkbox value="kiwi"/>
+        <Checkbox value="watermelon"/>
       </CheckboxGroup>
     );
     var boxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"][name="fruit"]');
@@ -38,15 +30,9 @@ describe('ReactCheckboxGroup', function() {
     var fruits = ['watermelon', 'pineapple'];
     var component = renderIntoDocument(
       <CheckboxGroup name="fruit" defaultValue={fruits}>
-        {
-          Checkbox => (
-            <div>
-              <Checkbox value="kiwi"/>
-              <Checkbox value="pineapple"/>
-              <Checkbox value="watermelon"/>
-            </div>
-          )
-        }
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
       </CheckboxGroup>
     );
 
@@ -64,15 +50,9 @@ describe('ReactCheckboxGroup', function() {
     var fruits = ['watermelon', 'pineapple'];
     var component = ReactDOM.render(
       <CheckboxGroup name="fruit" defaultValue={fruits}>
-        {
-          Checkbox => (
-            <div>
-              <Checkbox value="kiwi"/>
-              <Checkbox value="pineapple"/>
-              <Checkbox value="watermelon"/>
-            </div>
-          )
-        }
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
       </CheckboxGroup>,
       div
     );
@@ -85,15 +65,9 @@ describe('ReactCheckboxGroup', function() {
     // Re-render with same props, defaultValue shouldn't affect it now
     var component = ReactDOM.render(
       <CheckboxGroup name="fruit" defaultValue={fruits}>
-        {
-          Checkbox => (
-            <div>
-              <Checkbox value="kiwi"/>
-              <Checkbox value="pineapple"/>
-              <Checkbox value="watermelon"/>
-            </div>
-          )
-        }
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
       </CheckboxGroup>,
       div
     );
@@ -112,15 +86,9 @@ describe('ReactCheckboxGroup', function() {
     var fruits = ['watermelon', 'pineapple'];
     var component = ReactDOM.render(
       <CheckboxGroup name="fruit" value={fruits}>
-        {
-          Checkbox => (
-            <div>
-              <Checkbox value="kiwi"/>
-              <Checkbox value="pineapple"/>
-              <Checkbox value="watermelon"/>
-            </div>
-          )
-        }
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
       </CheckboxGroup>,
       div
     );
@@ -133,15 +101,9 @@ describe('ReactCheckboxGroup', function() {
     // Re-render with same props, value should be kept
     var component = ReactDOM.render(
       <CheckboxGroup name="fruit" value={fruits}>
-        {
-          Checkbox => (
-            <div>
-              <Checkbox value="kiwi"/>
-              <Checkbox value="pineapple"/>
-              <Checkbox value="watermelon"/>
-            </div>
-          )
-        }
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
       </CheckboxGroup>,
       div
     );
@@ -151,6 +113,37 @@ describe('ReactCheckboxGroup', function() {
     expect(newValue).to.include('pineapple');
     expect(newValue).to.include('watermelon');
     expect(newValue).to.not.include('kiwi');
+  });
+
+  it('Checks the correct boxes when props change', function() {
+    // Create an element to re-render to
+    var div = document.createElement('div');
+
+    var fruits = ['watermelon', 'pineapple'];
+    var component = ReactDOM.render(
+      <CheckboxGroup name="fruit" value={['watermelon']}>
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
+      </CheckboxGroup>,
+      div
+    );
+
+    // Re-render in same div with different prop value
+    var component = ReactDOM.render(
+      <CheckboxGroup name="fruit" value={['watermelon', 'kiwi']}>
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
+      </CheckboxGroup>,
+      div
+    );
+
+    var newValue = component.getValue();
+    expect(newValue.length).to.equal(2);
+    expect(newValue).to.include('kiwi');
+    expect(newValue).to.include('watermelon');
+    expect(newValue).to.not.include('pineapple');
   });
 
   it('Calls `onChange` with the correct new value', function() {
@@ -164,15 +157,9 @@ describe('ReactCheckboxGroup', function() {
 
     var component = renderIntoDocument(
       <CheckboxGroup name="fruit" value={fruits} onChange={onChange}>
-        {
-          Checkbox => (
-            <div>
-              <Checkbox value="kiwi"/>
-              <Checkbox value="pineapple"/>
-              <Checkbox value="watermelon"/>
-            </div>
-          )
-        }
+        <Checkbox value="kiwi"/>
+        <Checkbox value="pineapple"/>
+        <Checkbox value="watermelon"/>
       </CheckboxGroup>
     );
 
