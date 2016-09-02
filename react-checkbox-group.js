@@ -44,7 +44,8 @@ var Checkbox = exports.Checkbox = _react2.default.createClass({
 
     return _react2.default.createElement('input', _extends({}, this.props, {
       type: 'checkbox',
-      name: name
+      name: name,
+      disabled: this.props.disabled
     }, optional));
   }
 });
