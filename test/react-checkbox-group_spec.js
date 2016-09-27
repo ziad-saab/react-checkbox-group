@@ -26,7 +26,7 @@ describe('ReactCheckboxGroup', function() {
     expect(boxes.length).to.equal(2);
   });
 
-  it('Checks the correct boxes when `disabled` is used', function() {
+  it('Disables a box when `disabled` is used', function() {
     var disabled = true;
     var component = renderIntoDocument(
       <CheckboxGroup name="fruit">
