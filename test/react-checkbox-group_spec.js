@@ -26,6 +26,21 @@ describe('ReactCheckboxGroup', function() {
     expect(boxes.length).to.equal(2);
   });
 
+  it('Disables a box when `disabled` is used', function() {
+    var disabled = true;
+    var component = renderIntoDocument(
+      <CheckboxGroup name="fruit">
+        <Checkbox value="kiwi" disabled={disabled}/>
+        <Checkbox value="pineapple" disabled={disabled}/>
+        <Checkbox value="watermelon"/>
+      </CheckboxGroup>
+    );
+
+    var disabledBoxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"][name="fruit"][disabled]');
+
+    expect(disabledBoxes.length).to.equal(2);
+  });
+
   it('Checks the correct boxes when `defaultValue` is used', function() {
     var fruits = ['watermelon', 'pineapple'];
     var component = renderIntoDocument(

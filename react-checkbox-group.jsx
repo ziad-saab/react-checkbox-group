@@ -28,6 +28,7 @@ export const Checkbox = React.createClass({
         {...this.props}
         type="checkbox"
         name={name}
+        disabled={this.props.disabled}
         {...optional} />
     );
   }
