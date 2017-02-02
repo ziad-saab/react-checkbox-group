@@ -138,7 +138,7 @@ var CheckboxGroup = exports.CheckboxGroup = _react2.default.createClass({
     }
 
     if (typeof this.props.onChange === 'function') {
-      this.props.onChange(newValue, event);
+      this.props.onChange(newValue);
     }
   }
 });
