@@ -114,7 +114,7 @@ export const CheckboxGroup = React.createClass({
     }
 
     if (typeof this.props.onChange === 'function') {
-      this.props.onChange(newValue);
+      this.props.onChange(newValue, event);
     }
   }
 });
