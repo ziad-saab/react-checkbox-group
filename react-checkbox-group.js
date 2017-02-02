@@ -29,10 +29,10 @@ var Checkbox = exports.Checkbox = _react2.default.createClass({
   },
 
   render: function render() {
-    var _context$checkboxGrou = this.context.checkboxGroup,
-        name = _context$checkboxGrou.name,
-        checkedValues = _context$checkboxGrou.checkedValues,
-        onChange = _context$checkboxGrou.onChange;
+    var _context$checkboxGrou = this.context.checkboxGroup;
+    var name = _context$checkboxGrou.name;
+    var checkedValues = _context$checkboxGrou.checkedValues;
+    var onChange = _context$checkboxGrou.onChange;
 
     var optional = {};
     if (checkedValues) {
@@ -50,7 +50,7 @@ var Checkbox = exports.Checkbox = _react2.default.createClass({
   }
 });
 
-var CheckboxGroup = _react2.default.createClass({
+var CheckboxGroup = exports.CheckboxGroup = _react2.default.createClass({
   displayName: 'CheckboxGroup',
 
   propTypes: {
@@ -97,13 +97,14 @@ var CheckboxGroup = _react2.default.createClass({
   },
 
   render: function render() {
-    var _props = this.props,
-        Component = _props.Component,
-        name = _props.name,
-        value = _props.value,
-        onChange = _props.onChange,
-        children = _props.children,
-        rest = _objectWithoutProperties(_props, ['Component', 'name', 'value', 'onChange', 'children']);
+    var _props = this.props;
+    var Component = _props.Component;
+    var name = _props.name;
+    var value = _props.value;
+    var onChange = _props.onChange;
+    var children = _props.children;
+
+    var rest = _objectWithoutProperties(_props, ['Component', 'name', 'value', 'onChange', 'children']);
 
     return _react2.default.createElement(
       Component,
@@ -141,4 +142,3 @@ var CheckboxGroup = _react2.default.createClass({
     }
   }
 });
-exports.CheckboxGroup = CheckboxGroup;
