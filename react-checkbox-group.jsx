@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-// Original version https://github.com/ziad-saab/react-checkbox-group
 
 export class Checkbox extends Component {
   displayName: 'Checkbox';
@@ -36,7 +35,6 @@ export class Checkbox extends Component {
     );
   }
 }
-
 
 export class CheckboxGroup extends Component {
   displayName: 'CheckboxGroup';
