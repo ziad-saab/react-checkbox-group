@@ -7,138 +7,177 @@ exports.CheckboxGroup = exports.Checkbox = undefined;
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
-var Checkbox = exports.Checkbox = _react2.default.createClass({
-  displayName: 'Checkbox',
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-  contextTypes: {
-    checkboxGroup: _react2.default.PropTypes.object.isRequired
-  },
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-  componentWillMount: function componentWillMount() {
-    if (!(this.context && this.context.checkboxGroup)) {
-      throw new Error('The `Checkbox` component must be used as a child of `CheckboxGroup`.');
-    }
-  },
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-  render: function render() {
-    var _context$checkboxGrou = this.context.checkboxGroup;
-    var name = _context$checkboxGrou.name;
-    var checkedValues = _context$checkboxGrou.checkedValues;
-    var onChange = _context$checkboxGrou.onChange;
+// Original version https://github.com/ziad-saab/react-checkbox-group
 
-    var optional = {};
-    if (checkedValues) {
-      optional.checked = checkedValues.indexOf(this.props.value) >= 0;
-    }
-    if (typeof onChange === 'function') {
-      optional.onChange = onChange.bind(null, this.props.value);
-    }
+var Checkbox = exports.Checkbox = function (_Component) {
+  _inherits(Checkbox, _Component);
 
-    return _react2.default.createElement('input', _extends({}, this.props, {
-      type: 'checkbox',
-      name: name,
-      disabled: this.props.disabled
-    }, optional));
+  function Checkbox() {
+    _classCallCheck(this, Checkbox);
+
+    return _possibleConstructorReturn(this, (Checkbox.__proto__ || Object.getPrototypeOf(Checkbox)).apply(this, arguments));
   }
-});
 
-var CheckboxGroup = exports.CheckboxGroup = _react2.default.createClass({
-  displayName: 'CheckboxGroup',
+  _createClass(Checkbox, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      if (!(this.context && this.context.checkboxGroup)) {
+        throw new Error('The `Checkbox` component must be used as a child of `CheckboxGroup`.');
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _context$checkboxGrou = this.context.checkboxGroup,
+          name = _context$checkboxGrou.name,
+          checkedValues = _context$checkboxGrou.checkedValues,
+          onChange = _context$checkboxGrou.onChange;
 
-  propTypes: {
-    name: _react.PropTypes.string,
-    defaultValue: _react.PropTypes.array,
-    value: _react.PropTypes.array,
-    onChange: _react.PropTypes.func,
-    children: _react.PropTypes.node.isRequired,
-    Component: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.func, _react.PropTypes.object])
-  },
+      var optional = {};
+      if (checkedValues) {
+        optional.checked = checkedValues.indexOf(this.props.value) >= 0;
+      }
+      if (typeof onChange === 'function') {
+        optional.onChange = onChange.bind(null, this.props.value);
+      }
 
-  getDefaultProps: function getDefaultProps() {
-    return {
-      Component: "div"
+      return _react2.default.createElement('input', _extends({}, this.props, {
+        type: 'checkbox',
+        name: name,
+        disabled: this.props.disabled
+      }, optional));
+    }
+  }]);
+
+  return Checkbox;
+}(_react.Component);
+
+Checkbox.contextTypes = {
+  checkboxGroup: _propTypes2.default.object.isRequired
+};
+
+var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
+  _inherits(CheckboxGroup, _Component2);
+
+  function CheckboxGroup(props) {
+    _classCallCheck(this, CheckboxGroup);
+
+    var _this2 = _possibleConstructorReturn(this, (CheckboxGroup.__proto__ || Object.getPrototypeOf(CheckboxGroup)).call(this, props));
+
+    _this2._isControlledComponent = _this2._isControlledComponent.bind(_this2);
+    _this2._onCheckboxChange = _this2._onCheckboxChange.bind(_this2);
+    _this2.getChildContext = _this2.getChildContext.bind(_this2);
+    _this2.getValue = _this2.getValue.bind(_this2);
+    _this2.state = {
+      value: _this2.props.value || _this2.props.defaultValue || []
     };
-  },
+    return _this2;
+  }
 
-  childContextTypes: {
-    checkboxGroup: _react2.default.PropTypes.object
-  },
-
-  getChildContext: function getChildContext() {
-    return {
-      checkboxGroup: {
+  _createClass(CheckboxGroup, [{
+    key: 'getChildContext',
+    value: function getChildContext() {
+      var checkboxGroup = {
         name: this.props.name,
         checkedValues: this.state.value,
         onChange: this._onCheckboxChange
+      };
+      return { checkboxGroup: checkboxGroup };
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(newProps) {
+      if (newProps.value) {
+        this.setState({
+          value: newProps.value
+        });
       }
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      value: this.props.value || this.props.defaultValue || []
-    };
-  },
-
-  componentWillReceiveProps: function componentWillReceiveProps(newProps) {
-    if (newProps.value) {
-      this.setState({
-        value: newProps.value
-      });
     }
-  },
+  }, {
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          Component = _props.Component,
+          name = _props.name,
+          value = _props.value,
+          onChange = _props.onChange,
+          children = _props.children,
+          rest = _objectWithoutProperties(_props, ['Component', 'name', 'value', 'onChange', 'children']);
 
-  render: function render() {
-    var _props = this.props;
-    var Component = _props.Component;
-    var name = _props.name;
-    var value = _props.value;
-    var onChange = _props.onChange;
-    var children = _props.children;
-
-    var rest = _objectWithoutProperties(_props, ['Component', 'name', 'value', 'onChange', 'children']);
-
-    return _react2.default.createElement(
-      Component,
-      rest,
-      children
-    );
-  },
-
-  getValue: function getValue() {
-    return this.state.value;
-  },
-
-  _isControlledComponent: function _isControlledComponent() {
-    return !!this.props.value;
-  },
-
-  _onCheckboxChange: function _onCheckboxChange(checkboxValue, event) {
-    var newValue;
-    if (event.target.checked) {
-      newValue = this.state.value.concat(checkboxValue);
-    } else {
-      newValue = this.state.value.filter(function (v) {
-        return v !== checkboxValue;
-      });
+      return _react2.default.createElement(
+        Component,
+        rest,
+        children
+      );
     }
-
-    if (!this._isControlledComponent()) {
-      this.setState({ value: newValue });
-    } else {
-      this.setState({ value: this.props.value });
+  }, {
+    key: 'getValue',
+    value: function getValue() {
+      return this.state.value;
     }
-
-    if (typeof this.props.onChange === 'function') {
-      this.props.onChange(newValue, event);
+  }, {
+    key: '_isControlledComponent',
+    value: function _isControlledComponent() {
+      return Boolean(this.props.value);
     }
-  }
-});
+  }, {
+    key: '_onCheckboxChange',
+    value: function _onCheckboxChange(checkboxValue, event) {
+      var newValue = void 0;
+      if (event.target.checked) {
+        newValue = this.state.value.concat(checkboxValue);
+      } else {
+        newValue = this.state.value.filter(function (v) {
+          return v !== checkboxValue;
+        });
+      }
+
+      if (this._isControlledComponent()) {
+        this.setState({ value: this.props.value });
+      } else {
+        this.setState({ value: newValue });
+      }
+
+      if (typeof this.props.onChange === 'function') {
+        this.props.onChange(newValue, event);
+      }
+    }
+  }]);
+
+  return CheckboxGroup;
+}(_react.Component);
+
+CheckboxGroup.childContextTypes = {
+  checkboxGroup: _propTypes2.default.object.isRequired
+};
+CheckboxGroup.propTypes = {
+  name: _propTypes2.default.string,
+  defaultValue: _propTypes2.default.array,
+  value: _propTypes2.default.array,
+  onChange: _propTypes2.default.func,
+  children: _propTypes2.default.node.isRequired,
+  Component: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.func, _propTypes2.default.object])
+};
+CheckboxGroup.defaultProps = {
+  Component: "div"
+};
