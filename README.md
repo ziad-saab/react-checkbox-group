@@ -80,11 +80,11 @@ class Demo extends React.Component {
 
   componentDidMount() {
     // Add orange and remove watermelon after 5 seconds
-    setTimeout(function() {
+    setTimeout(() => {
       this.setState({
         value: ['apple','orange']
       });
-    }.bind(this), 5000);
+    }, 5000);
   }
 
   render() {
