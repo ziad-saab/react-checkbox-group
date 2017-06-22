@@ -70,23 +70,24 @@ import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 ## Example
 
 ```javascript
-var Demo = React.createClass({
-  getInitialState: function() {
-    return {
+class Demo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       fruits: ['apple','watermelon']
     };
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     // Add orange and remove watermelon after 5 seconds
-    setTimeout(function() {
+    setTimeout(() => {
       this.setState({
         value: ['apple','orange']
       });
-    }.bind(this), 5000);
-  },
+    }, 5000);
+  }
 
-  render: function() {
+  render() {
     // the checkboxes can be arbitrarily deep. They will always be fetched and
     // attached the `name` attribute correctly. `value` is optional
     return (
@@ -100,13 +101,15 @@ var Demo = React.createClass({
         <label><Checkbox value="watermelon"/> Watermelon</label>
       </CheckboxGroup>
     );
-  },
-  fruitsChanged: function(newFruits) {
+  }
+  
+  fruitsChanged = (newFruits) => {
     this.setState({
       fruits: newFruits
     });
   }
-});
+  
+};
 
 ReactDOM.render(<Demo/>, document.body);
 ```
