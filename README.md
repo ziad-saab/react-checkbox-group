@@ -82,7 +82,7 @@ class Demo extends React.Component {
     // Add orange and remove watermelon after 5 seconds
     setTimeout(() => {
       this.setState({
-        value: ['apple','orange']
+        fruits: ['apple','orange']
       });
     }, 5000);
   }
