@@ -116,7 +116,7 @@ export class CheckboxGroup extends Component {
     }
 
     if (typeof this.props.onChange === 'function') {
-      this.props.onChange(newValue, event);
+      this.props.onChange(newValue, this.props.name, event);
     }
   }
 }
