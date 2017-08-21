@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {expect} from 'chai';
 import {Checkbox, CheckboxGroup} from '../react-checkbox-group.jsx';
-import {Simulate, renderIntoDocument} from 'react-addons-test-utils';
+import {Simulate, renderIntoDocument} from 'react-dom/test-utils';
 
 function _findInputWithValue(wrapper, value) {
   return (
