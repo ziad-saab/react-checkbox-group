@@ -4,7 +4,7 @@
   "description": "Sensible checkbox groups manipulation for DOM.",
   "main": "react-checkbox-group.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js  --recursive",
+    "test": "mocha --require babel-core/register --require ./test/test_helper.js  --recursive",
     "test:watch": "npm run test -- --watch",
     "prepublish": "babel ./react-checkbox-group.jsx --out-file ./react-checkbox-group.js"
   },
