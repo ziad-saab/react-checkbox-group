@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 export class Checkbox extends Component {
-  displayName: 'Checkbox';
+  static displayName = 'Checkbox';
 
   componentWillMount() {
     if (!(this.props && this.props.checkboxGroup)) {
@@ -26,17 +26,17 @@ export class Checkbox extends Component {
         name={name}
         disabled={this.props.disabled}
         {...optional}
-        />
+      />
     );
   }
 }
 
 export class CheckboxGroup extends Component {
-  displayName: 'CheckboxGroup';
+  static displayName = 'CheckboxGroup';
 
   static defaultProps = {
     Component: "div"
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -56,15 +56,33 @@ export class CheckboxGroup extends Component {
     }
   }
 
-  render() {
+  _prepareBoxes = (children, maxDepth=1, depth=1) => {
+    if (depth > maxDepth) {
+      return children;
+    }
+
     const checkboxGroup = {
       name: this.props.name,
       checkedValues: this.state.value,
       onChange: this._onCheckboxChange
     };
 
-    const {Component, name, value, onChange, children, ...rest} = this.props;
-    return <Component {...rest}>{React.Children.map(children, child => React.cloneElement(child, {checkboxGroup}))}</Component>;
+    return React.Children.map(children, child => {
+      if (!child.$$typeof) {
+        return child;
+      }
+      else if (child.type === Checkbox) {
+        return React.cloneElement(child, {checkboxGroup})
+      }
+      else {
+        return React.cloneElement(child, {}, child.props.children ? React.Children.map(child.props.children, c => this._prepareBoxes(c, maxDepth, depth + 1)) : null)
+      }
+    });
+  };
+
+  render() {
+    const {Component, name, value, onChange, children, checkboxDepth = 1, ...rest} = this.props;
+    return <Component {...rest}>{this._prepareBoxes(children, checkboxDepth)}</Component>;
   }
 
   getValue() {

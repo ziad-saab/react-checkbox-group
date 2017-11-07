@@ -14,21 +14,43 @@ function _findInputWithValue(wrapper, value) {
 
 describe('ReactCheckboxGroup', function() {
 
+  it('Fails when `Checkbox` is not a direct child of `CheckboxGroup`', function() {
+    expect(() => {
+      renderIntoDocument(
+        <CheckboxGroup name="fruit">
+          <label><Checkbox value="kiwi"/> Kiwi</label>
+          <label><Checkbox value="watermelon"/> Watermelon</label>
+        </CheckboxGroup>
+      );
+    }).to.throw();
+  });
+
+  it('Renders correctly when `Checkbox` is not a direct child of `CheckboxGroup` and `checkboxDepth` is passed', function() {
+    const component = renderIntoDocument(
+      <CheckboxGroup checkboxDepth={2} name="fruit">
+        <label><Checkbox value="kiwi"/> Kiwi</label>
+        <label><Checkbox value="watermelon"/> Watermelon</label>
+      </CheckboxGroup>
+    );
+
+    expect(component).to.be.ok;
+  });
+
   it('Passes the `name` prop down to the boxes', function() {
-    var component = renderIntoDocument(
+    const component = renderIntoDocument(
       <CheckboxGroup name="fruit">
         <Checkbox value="kiwi"/>
         <Checkbox value="watermelon"/>
       </CheckboxGroup>
     );
-    var boxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"][name="fruit"]');
+    const boxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"][name="fruit"]');
 
     expect(boxes.length).to.equal(2);
   });
 
   it('Disables a box when `disabled` is used', function() {
-    var disabled = true;
-    var component = renderIntoDocument(
+    const disabled = true;
+    const component = renderIntoDocument(
       <CheckboxGroup name="fruit">
         <Checkbox value="kiwi" disabled={disabled}/>
         <Checkbox value="pineapple" disabled={disabled}/>
@@ -36,14 +58,14 @@ describe('ReactCheckboxGroup', function() {
       </CheckboxGroup>
     );
 
-    var disabledBoxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"][name="fruit"][disabled]');
+    const disabledBoxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"][name="fruit"][disabled]');
 
     expect(disabledBoxes.length).to.equal(2);
   });
 
   it('Checks the correct boxes when `defaultValue` is used', function() {
-    var fruits = ['watermelon', 'pineapple'];
-    var component = renderIntoDocument(
+    const fruits = ['watermelon', 'pineapple'];
+    const component = renderIntoDocument(
       <CheckboxGroup name="fruit" defaultValue={fruits}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -51,7 +73,7 @@ describe('ReactCheckboxGroup', function() {
       </CheckboxGroup>
     );
 
-    var checkedBoxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"]:checked');
+    const checkedBoxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"]:checked');
 
     expect(checkedBoxes.length).to.equal(2);
     expect(checkedBoxes[0].value).to.equal('pineapple');
@@ -60,10 +82,10 @@ describe('ReactCheckboxGroup', function() {
 
   it('Lets boxes become unselected if uncontrolled', function() {
     // Create an element to re-render to
-    var div = document.createElement('div');
+    const div = document.createElement('div');
 
-    var fruits = ['watermelon', 'pineapple'];
-    var component = ReactDOM.render(
+    const fruits = ['watermelon', 'pineapple'];
+    let component = ReactDOM.render(
       <CheckboxGroup name="fruit" defaultValue={fruits}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -73,12 +95,12 @@ describe('ReactCheckboxGroup', function() {
     );
 
     // Check the box manually
-    var wrapper = ReactDOM.findDOMNode(component);
-    var box = _findInputWithValue(wrapper, 'kiwi');
+    const wrapper = ReactDOM.findDOMNode(component);
+    const box = _findInputWithValue(wrapper, 'kiwi');
     Simulate.change(box, {target: {checked: true}});
 
     // Re-render with same props, defaultValue shouldn't affect it now
-    var component = ReactDOM.render(
+    component = ReactDOM.render(
       <CheckboxGroup name="fruit" defaultValue={fruits}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -87,7 +109,7 @@ describe('ReactCheckboxGroup', function() {
       div
     );
 
-    var newValue = component.getValue();
+    const newValue = component.getValue();
     expect(newValue.length).to.equal(3);
     expect(newValue).to.include('kiwi');
     expect(newValue).to.include('pineapple');
@@ -96,10 +118,10 @@ describe('ReactCheckboxGroup', function() {
 
   it('Keeps the same boxes checked if controlled', function() {
     // Create an element to re-render to
-    var div = document.createElement('div');
+    const div = document.createElement('div');
 
-    var fruits = ['watermelon', 'pineapple'];
-    var component = ReactDOM.render(
+    const fruits = ['watermelon', 'pineapple'];
+    let component = ReactDOM.render(
       <CheckboxGroup name="fruit" value={fruits}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -109,12 +131,12 @@ describe('ReactCheckboxGroup', function() {
     );
 
     // Check the box manually
-    var wrapper = ReactDOM.findDOMNode(component);
-    var box = _findInputWithValue(wrapper, 'kiwi')
+    const wrapper = ReactDOM.findDOMNode(component);
+    const box = _findInputWithValue(wrapper, 'kiwi');
     Simulate.change(box, {target: {checked: true}});
 
     // Re-render with same props, value should be kept
-    var component = ReactDOM.render(
+    component = ReactDOM.render(
       <CheckboxGroup name="fruit" value={fruits}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -123,7 +145,7 @@ describe('ReactCheckboxGroup', function() {
       div
     );
 
-    var newValue = component.getValue();
+    const newValue = component.getValue();
     expect(newValue.length).to.equal(2);
     expect(newValue).to.include('pineapple');
     expect(newValue).to.include('watermelon');
@@ -132,10 +154,10 @@ describe('ReactCheckboxGroup', function() {
 
   it('Checks the correct boxes when props change', function() {
     // Create an element to re-render to
-    var div = document.createElement('div');
+    const div = document.createElement('div');
 
-    var fruits = ['watermelon', 'pineapple'];
-    var component = ReactDOM.render(
+    const fruits = ['watermelon', 'pineapple'];
+    ReactDOM.render(
       <CheckboxGroup name="fruit" value={['watermelon']}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -145,7 +167,7 @@ describe('ReactCheckboxGroup', function() {
     );
 
     // Re-render in same div with different prop value
-    var component = ReactDOM.render(
+    const component = ReactDOM.render(
       <CheckboxGroup name="fruit" value={['watermelon', 'kiwi']}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -154,7 +176,7 @@ describe('ReactCheckboxGroup', function() {
       div
     );
 
-    var newValue = component.getValue();
+    const newValue = component.getValue();
     expect(newValue.length).to.equal(2);
     expect(newValue).to.include('kiwi');
     expect(newValue).to.include('watermelon');
@@ -162,15 +184,15 @@ describe('ReactCheckboxGroup', function() {
   });
 
   it('Calls `onChange` with the correct new value', function() {
-    var fruits = ['kiwi', 'watermelon'];
-    var onChangeCalled = false;
-    var newFruits;
+    const fruits = ['kiwi', 'watermelon'];
+    let onChangeCalled = false;
+    let newFruits;
     function onChange(newValue) {
       onChangeCalled = true;
       newFruits = newValue;
     }
 
-    var component = renderIntoDocument(
+    const component = renderIntoDocument(
       <CheckboxGroup name="fruit" value={fruits} onChange={onChange}>
         <Checkbox value="kiwi"/>
         <Checkbox value="pineapple"/>
@@ -179,8 +201,8 @@ describe('ReactCheckboxGroup', function() {
     );
 
     // Check the box manually
-    var wrapper = ReactDOM.findDOMNode(component);
-    var box = _findInputWithValue(wrapper, 'pineapple');
+    const wrapper = ReactDOM.findDOMNode(component);
+    const box = _findInputWithValue(wrapper, 'pineapple');
     Simulate.change(box, {target: {checked: true}});
 
     expect(onChangeCalled).to.be.ok;

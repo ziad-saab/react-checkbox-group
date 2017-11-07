@@ -69,6 +69,11 @@ var CheckboxGroup = Check.CheckboxGroup;
 import {Checkbox, CheckboxGroup} from 'react-checkbox-group';
 ```
 
+## Nested `Checkbox`
+If you render `Checkbox`es deeply nested inside the `CheckboxGroup`, you need to pass a `checkboxDepth` prop to the `CheckboxGroup` so that it can manage the checkboxes without too much overhead.
+
+This is shown in the example below where the `<Checkbox>` elements are nested inside `<label>`s.
+
 ## Example
 
 ```javascript
@@ -94,6 +99,7 @@ class Demo extends React.Component {
     // attached the `name` attribute correctly. `value` is optional
     return (
       <CheckboxGroup
+        checkboxDepth={2} // This is needed to optimize the checkbox group
         name="fruits"
         value={this.state.fruits}
         onChange={this.fruitsChanged}>
