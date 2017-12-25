@@ -13,7 +13,7 @@ export class Checkbox extends Component {
     const {checkboxGroup: {name, checkedValues, onChange}, ...rest} = this.props;
     const optional = {};
     if (checkedValues) {
-      optional.checked = (checkedValues.indexOf(this.props.value) >= 0);
+      optional.checked = (checkedValues.indexOf(this.props.value) >= 0) ? 'checked' : '';
     }
     if (typeof onChange === 'function') {
       optional.onChange = onChange.bind(null, this.props.value);
