@@ -68,7 +68,7 @@ export class CheckboxGroup extends Component {
     };
 
     return React.Children.map(children, child => {
-      if (!child.$$typeof) {
+      if (!child || !child.$$typeof) {
         return child;
       }
       else if (child.type === Checkbox) {

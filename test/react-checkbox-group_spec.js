@@ -25,11 +25,13 @@ describe('ReactCheckboxGroup', function() {
     }).to.throw();
   });
 
-  it('Renders correctly when `Checkbox` is not a direct child of `CheckboxGroup` and `checkboxDepth` is passed', function() {
+  it('Renders correctly when `Checkbox` components on a different nesting levels and one of the child is null', function() {
     const component = renderIntoDocument(
-      <CheckboxGroup checkboxDepth={2} name="fruit">
+      <CheckboxGroup checkboxDepth={3} name="fruit">
         <label><Checkbox value="kiwi"/> Kiwi</label>
-        <label><Checkbox value="watermelon"/> Watermelon</label>
+        {false && ( // or another logical condition which returns `false`
+          <label><Checkbox value="watermelon"/> Watermelon</label>
+        )}
       </CheckboxGroup>
     );
 
