@@ -25,7 +25,20 @@ describe('ReactCheckboxGroup', function() {
     }).to.throw();
   });
 
-  it('Renders correctly when `Checkbox` components on a different nesting levels and one of the child is null', function() {
+  it('Renders correctly when `Checkbox` components at different nesting levels', function() {
+    const component = renderIntoDocument(
+      <CheckboxGroup checkboxDepth={3} name="fruit">
+        <label><Checkbox value="kiwi"/> Kiwi</label>
+        <div>
+          <label><Checkbox value="watermelon"/> Watermelon</label>
+        </div>
+      </CheckboxGroup>
+    );
+
+    expect(component).to.be.ok;
+  });
+
+  it('Renders correctly when one of the `CheckboxGroup` child is null', function() {
     const component = renderIntoDocument(
       <CheckboxGroup checkboxDepth={3} name="fruit">
         <label><Checkbox value="kiwi"/> Kiwi</label>
