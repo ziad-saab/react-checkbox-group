@@ -93,7 +93,7 @@ var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
       };
 
       return _react2.default.Children.map(children, function (child) {
-        if (!child || !child.$$typeof) {
+        if (!(child && child.$$typeof)) {
           return child;
         } else if (child.type === Checkbox) {
           return _react2.default.cloneElement(child, { checkboxGroup: checkboxGroup });
