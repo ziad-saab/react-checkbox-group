@@ -22,6 +22,8 @@ export class Checkbox extends Component {
     return (
       <input
         {...rest}
+        role="checkbox"
+        aria-checked={optional.checked}
         type="checkbox"
         name={name}
         disabled={this.props.disabled}
@@ -82,7 +84,7 @@ export class CheckboxGroup extends Component {
 
   render() {
     const {Component, name, value, onChange, children, checkboxDepth = 1, ...rest} = this.props;
-    return <Component {...rest}>{this._prepareBoxes(children, checkboxDepth)}</Component>;
+    return <Component role="group" {...rest}>{this._prepareBoxes(children, checkboxDepth)}</Component>;
   }
 
   getValue() {
