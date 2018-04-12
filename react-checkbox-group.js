@@ -40,14 +40,29 @@ var Checkbox = exports.Checkbox = function (_Component) {
       }
     }
   }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.el.indeterminate = this.props.indeterminate;
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.indeterminate !== this.props.indeterminate) {
+        this.el.indeterminate = this.props.indeterminate;
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       var _props = this.props,
           _props$checkboxGroup = _props.checkboxGroup,
           name = _props$checkboxGroup.name,
           checkedValues = _props$checkboxGroup.checkedValues,
           onChange = _props$checkboxGroup.onChange,
-          rest = _objectWithoutProperties(_props, ['checkboxGroup']);
+          indeterminate = _props.indeterminate,
+          rest = _objectWithoutProperties(_props, ['checkboxGroup', 'indeterminate']);
 
       var optional = {};
       if (checkedValues) {
@@ -60,7 +75,10 @@ var Checkbox = exports.Checkbox = function (_Component) {
       return _react2.default.createElement('input', _extends({}, rest, {
         type: 'checkbox',
         name: name,
-        disabled: this.props.disabled
+        disabled: this.props.disabled,
+        ref: function ref(el) {
+          return _this2.el = el;
+        }
       }, optional));
     }
   }]);
@@ -69,6 +87,9 @@ var Checkbox = exports.Checkbox = function (_Component) {
 }(_react.Component);
 
 Checkbox.displayName = 'Checkbox';
+Checkbox.defaultProps = {
+  indeterminate: false
+};
 
 var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
   _inherits(CheckboxGroup, _Component2);
@@ -76,9 +97,9 @@ var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
   function CheckboxGroup(props) {
     _classCallCheck(this, CheckboxGroup);
 
-    var _this2 = _possibleConstructorReturn(this, (CheckboxGroup.__proto__ || Object.getPrototypeOf(CheckboxGroup)).call(this, props));
+    var _this3 = _possibleConstructorReturn(this, (CheckboxGroup.__proto__ || Object.getPrototypeOf(CheckboxGroup)).call(this, props));
 
-    _this2._prepareBoxes = function (children) {
+    _this3._prepareBoxes = function (children) {
       var maxDepth = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
       var depth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
 
@@ -87,9 +108,9 @@ var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
       }
 
       var checkboxGroup = {
-        name: _this2.props.name,
-        checkedValues: _this2.state.value,
-        onChange: _this2._onCheckboxChange
+        name: _this3.props.name,
+        checkedValues: _this3.state.value,
+        onChange: _this3._onCheckboxChange
       };
 
       return _react2.default.Children.map(children, function (child) {
@@ -99,19 +120,19 @@ var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
           return _react2.default.cloneElement(child, { checkboxGroup: checkboxGroup });
         } else {
           return _react2.default.cloneElement(child, {}, child.props.children ? _react2.default.Children.map(child.props.children, function (c) {
-            return _this2._prepareBoxes(c, maxDepth, depth + 1);
+            return _this3._prepareBoxes(c, maxDepth, depth + 1);
           }) : null);
         }
       });
     };
 
-    _this2._isControlledComponent = _this2._isControlledComponent.bind(_this2);
-    _this2._onCheckboxChange = _this2._onCheckboxChange.bind(_this2);
-    _this2.getValue = _this2.getValue.bind(_this2);
-    _this2.state = {
-      value: _this2.props.value || _this2.props.defaultValue || []
+    _this3._isControlledComponent = _this3._isControlledComponent.bind(_this3);
+    _this3._onCheckboxChange = _this3._onCheckboxChange.bind(_this3);
+    _this3.getValue = _this3.getValue.bind(_this3);
+    _this3.state = {
+      value: _this3.props.value || _this3.props.defaultValue || []
     };
-    return _this2;
+    return _this3;
   }
 
   _createClass(CheckboxGroup, [{
@@ -181,5 +202,5 @@ var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
 
 CheckboxGroup.displayName = 'CheckboxGroup';
 CheckboxGroup.defaultProps = {
-  Component: "div"
+  Component: 'div'
 };

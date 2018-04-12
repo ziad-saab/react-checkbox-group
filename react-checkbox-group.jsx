@@ -3,14 +3,28 @@ import React, {Component} from 'react';
 export class Checkbox extends Component {
   static displayName = 'Checkbox';
 
+  static defaultProps = {
+    indeterminate: false,
+  }
+
   componentWillMount() {
     if (!(this.props && this.props.checkboxGroup)) {
       throw new Error('The `Checkbox` component must be used as a child of `CheckboxGroup`.');
     }
   }
 
+  componentDidMount() {
+    this.el.indeterminate = this.props.indeterminate;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.indeterminate !== this.props.indeterminate) {
+      this.el.indeterminate = this.props.indeterminate;
+    }
+  }
+
   render() {
-    const {checkboxGroup: {name, checkedValues, onChange}, ...rest} = this.props;
+    const {checkboxGroup: {name, checkedValues, onChange}, indeterminate, ...rest} = this.props;
     const optional = {};
     if (checkedValues) {
       optional.checked = (checkedValues.indexOf(this.props.value) >= 0);
@@ -25,6 +39,7 @@ export class Checkbox extends Component {
         type="checkbox"
         name={name}
         disabled={this.props.disabled}
+        ref={el => this.el = el}
         {...optional}
       />
     );
@@ -35,7 +50,7 @@ export class CheckboxGroup extends Component {
   static displayName = 'CheckboxGroup';
 
   static defaultProps = {
-    Component: "div"
+    Component: 'div',
   };
 
   constructor(props) {
@@ -72,10 +87,10 @@ export class CheckboxGroup extends Component {
         return child;
       }
       else if (child.type === Checkbox) {
-        return React.cloneElement(child, {checkboxGroup})
+        return React.cloneElement(child, {checkboxGroup});
       }
       else {
-        return React.cloneElement(child, {}, child.props.children ? React.Children.map(child.props.children, c => this._prepareBoxes(c, maxDepth, depth + 1)) : null)
+        return React.cloneElement(child, {}, child.props.children ? React.Children.map(child.props.children, c => this._prepareBoxes(c, maxDepth, depth + 1)) : null);
       }
     });
   };

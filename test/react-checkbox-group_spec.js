@@ -226,4 +226,17 @@ describe('ReactCheckboxGroup', function() {
     expect(newFruits).to.include('pineapple');
     expect(newFruits).to.include('watermelon');
   });
+
+  it('Sets `indeterminate` state of the boxes', function() {
+    const component = renderIntoDocument(
+      <CheckboxGroup name="fruit">
+        <Checkbox value="kiwi" indeterminate={true}/>
+        <Checkbox value="watermelon" indeterminate={false}/>
+      </CheckboxGroup>
+    );
+    const boxes = ReactDOM.findDOMNode(component).querySelectorAll('input[type="checkbox"][name="fruit"]');
+
+    expect(boxes[0].indeterminate).to.equal(true);
+    expect(boxes[1].indeterminate).to.equal(false);
+  });
 });
