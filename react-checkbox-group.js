@@ -95,7 +95,7 @@ var CheckboxGroup = exports.CheckboxGroup = function (_Component2) {
       return _react2.default.Children.map(children, function (child) {
         if (!(child && child.$$typeof)) {
           return child;
-        } else if (child.type === Checkbox) {
+        } else if (child.type === Checkbox || child.type && child.type.prototype instanceof Checkbox) {
           return _react2.default.cloneElement(child, { checkboxGroup: checkboxGroup });
         } else {
           return _react2.default.cloneElement(child, {}, child.props.children ? _react2.default.Children.map(child.props.children, function (c) {
