@@ -71,7 +71,7 @@ export class CheckboxGroup extends Component {
       if (!(child && child.$$typeof)) {
         return child;
       }
-      else if (child.type === Checkbox) {
+      else if (child.type === Checkbox || child.type && child.type.prototype instanceof Checkbox) {
         return React.cloneElement(child, {checkboxGroup})
       }
       else {
