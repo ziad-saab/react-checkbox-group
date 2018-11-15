@@ -35,7 +35,8 @@ export class CheckboxGroup extends Component {
   static displayName = 'CheckboxGroup';
 
   static defaultProps = {
-    Component: "div"
+    Component: "div",
+    CheckboxComponent: Checkbox,
   };
 
   constructor(props) {
@@ -71,7 +72,7 @@ export class CheckboxGroup extends Component {
       if (!(child && child.$$typeof)) {
         return child;
       }
-      else if (child.type === Checkbox) {
+      else if (child.type === this.props.CheckboxComponent) {
         return React.cloneElement(child, {checkboxGroup})
       }
       else {
