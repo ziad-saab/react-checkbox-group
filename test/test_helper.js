@@ -1,5 +1,5 @@
 var jsdom = require('jsdom');
-var { window: win } = new jsdom.JSDOM('<!doctype html><html><body></body></html>');
+var { window: win } = new jsdom.JSDOM('<!doctype html><html><body></body></html>', { url: 'http://localhost' });
 
 global.window = win;
 global.document = win.document;
