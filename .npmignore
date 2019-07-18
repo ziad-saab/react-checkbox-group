@@ -1,3 +1,9 @@
 node_modules
-bower_components
-bower.json
+/src
+/__tests__
+.editorconfig
+.gitignore
+.prettierrc
+.travis.yml
+tsconfig.json
+yarn.lock
