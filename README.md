@@ -1,7 +1,6 @@
 # [React](http://facebook.github.io/react/)-checkbox-group
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/ziad-saab/react-checkbox-group.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/ziad-saab/react-checkbox-group.svg?branch=master)](https://travis-ci.org/ziad-saab/react-checkbox-group)
 
 This is your average checkbox group:
